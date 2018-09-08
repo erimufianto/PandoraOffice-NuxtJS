@@ -45,26 +45,26 @@ export default {
         };
     },
     methods: {
-        async login() {
+        login() {
             if  (
                 this.username !== null && 
                 this.username !== "" &&
                 this.password !== null &&
                 this.password !== ""
             ) {
-            const responses = await axios
+            axios
                 .post(
                     process.env.myapi +
                         '/graphql?query=mutation{Authenticate(input: {username:"' +
                         this.username +
                         '",password:"' +
                         this.password +
-                        '"}) {token,user {id, username, organizations{nama,scopes}}}' 
+                        '"}) {token,user {id, username, organizations{nama,scopes}}}}' 
                     )
                     .then(response => {
                         this.$store.commit("auth/setUser", response.data.data.Authenticate),
                         this.$store.commit("auth/setAuthenticated", response.data.data.Authenticate),
-                        this.$router.push("/register");
+                        this.$router.push("/home");
                     })
                     .catch(error => console.log(error));
             }

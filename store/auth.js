@@ -2,25 +2,28 @@ import Cookies from "js-cookie";
 
 export const state = () => ({
   auth: true,
+  credentials: {
     username: "",
-    nama: "",
-    token: ""
+    nama: ""
+  },
+  token: ""
 });
 
 export const mutations = {
-  setUser(state) {
-    state.username = user.username;
-    state.nama = user.nama;
-    state.token = token;
-    Cookies.set(user.nama, token, { expires: 1 });
+  setUser(state, credentials) {
+    state.credentials.username = credentials.user.username;
+    state.credentials.nama = credentials.user.nama;
+    state.token = credentials.token;
+    Cookies.set(credentials.user.nama, credentials.token, { expires: 1 });
   },
-  setAuthenticated(state) {
+  setAuthenticated(state, credentials) {
     if (state.token != null) {
       state.auth = true;
     }
   },
   logout() {
     console.log(12);
+    //Cookies.remove(credential.nama);
   }
 };
 

@@ -1,37 +1,25 @@
 <template>
 <div class="container">
-    <div class="col-lg-6">
-        <div class="top_header_left">
-            <div class="input-group">
-                <input type="text" class="form-control" placeholder="Search" aria-label="Search">
-                <span class="input-group-btn">
-                <button class="btn btn-secondary" type="button"><i class="icon-magnifier"></i></button>
-                </span>
-            </div>
-        </div>
-    </div>
 
     <div class="container mt-4 mb-4">
         <div class="categories_main_inner">
             <div class="row row_disable">
-
-            <div class="col-lg-3 float-md-right">
-                <kategori/>
-            </div>
-            <div class="col-lg-9 float-md-right">
+            
+           <div v-if="loadedDetail" class="col-lg-9 float-md-right">
+                <h3 class="cart_single_title">Detail Produk</h3>
                 <div class="row"> 
                     <div class="col-lg-4">                      
-                        <img class="img-thumbnail" :src="loadedProduk.thumbnail" alt="">     
+                        <img class="img-thumbnail" :src="loadedDetail.image[0].thumbnail" alt="">     
                     </div>
 
                     <div class="col-lg-5">
                         <div class="product_details_text">
-                            <h3>{{ loadedProduk.nama }}</h3>
-                            <h4 v-if="loadedProduk.harga_promo==0"> {{ "Rp. "+ loadedProduk.harga }}</h4>
-                            <h4 v-else><del>{{ "Rp. " + loadedProduk.harga }}</del><br>Rp. {{ loadedProduk.harga_promo }}</h4>
-                            <p>{{ loadedProduk.deskripsi }}</p>
+                            <h3>{{ loadedDetail.nama }}</h3>
+                            <h5 v-if="loadedDetail.pricing.harga_promo==0">Rp {{ loadedDetail.pricing.harga }}</h5>
+                            <h4 v-else><del>Rp {{ loadedDetail.pricing.harga }}</del><br>Rp {{ loadedDetail.pricing.harga_promo }}</h4>
+                            <p>{{ loadedDetail.deskripsi }}</p>
                                 <button type="submit" class="detail_btn" style="margin-right:10px;" @click="addKatalog(produk)">Tambah Katalog</button>
-                                <button type="submit" class="submit_btn" onclick="window.location.href = 'beli'">Beli</button>                       
+                                <nuxt-link :to="{name: 'cart', params: {id: loadedDetail.id}}" class="submit_btn">Beli</nuxt-link>                                                      
                         </div>
                     </div>
                 </div>
@@ -45,41 +33,43 @@
 
 <script>
 import axios from 'axios'
-import kategori from '@/components/produk/kategori'
 
 export default {
     layout: 'layouthome',
-    components: {
-        kategori
+    props:['loadedDetail'],
+    data() {
+        return {
+            produk: {
+                id: this.$route.params.id
+            }
+        }
     },
-    async asyncData(context, callback) {
-        const { data } = await axios.get(
-        process.env.myapi + 
-        "/graphql?query=query{ barang{ id sku nama dimensi{ panjang lebar tinggi } deskripsi pricing{ id sku_barang tanggal harga harga_promo } image{ id thumbnail image_ori id_barang } } }"
-    );
-    callback(null, {
-        loadedProduk: data.data.barang
-    });
+    mounted(produk) {
+        axios 
+            .get(
+                process.env.myapi + 
+                    "/graphql?query=query{ detailBarangOffice(id:" + 
+                    this.produk.id + 
+                    "){ id nama sku deskripsi image{ thumbnail image_ori } pricing{ harga harga_promo } } }"
+            )
+            .then (res => 
+                (this.loadedDetail = res.data.data.detailBarangOffice[0]))
     },
-    // created () {
-    //     if(!this.produk.nama) {     
-    //         this.$store.dispatch('produkById', this.$route.params['id'])
-    //     }
-    // },
-    // data () {
-    //     return {
-    //         produk: this.$store.getters.produkById(this.$route.params['id'])
-    //     }
-    // },
-    // methods: {
-    //     addKatalog(produk) {
-    //         this.$store.commit('addKatalog', produk)
-    //         this.$toast.open({
-    //             message: 'Barang telah ditambahkan di katalog',
-    //             type: 'is-success'
-    //         })
-    //     }
-    // }
+    methods: {
+        addKatalog() {
+            axios
+                .post(
+                    process.env.myapi + 
+                        "graphiql?query=mutation{ newSellingList(user_id:" + 
+                        this.user.id + ",sku_barang:" +  
+                        this.sku + ",harga:" + 
+                        this.harga_input+ 
+                        "){ id user_id sku_barang harga } }"
+                )
+                .then (res => 
+                    (this.dataKatalog = res.data.data.newSellingList))
+        }
+    }
 }
 </script> 
 

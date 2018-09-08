@@ -28,10 +28,10 @@ export default {
   async asyncData(context, callback) {
     const { data } = await axios.get(
       process.env.myapi + 
-      "/graphql?query=query{ barang{ id sku nama dimensi{ panjang lebar tinggi } deskripsi pricing{ id sku_barang tanggal harga harga_promo } image{ id thumbnail image_ori id_barang } } }"
+      "/graphql?query=query{barangOffice{ id sku nama deskripsi image {id,thumbnail,image_ori,id_barang}pricing{ id sku_barang tanggal harga harga_promo } kategori{ id_barang id_kategori kategori_nama{ id nama jenis } } } }"
     );
     callback(null, {
-      loadedProduk: data.data.barang
+      loadedProduk: data.data.barangOffice
     });
   }
 };

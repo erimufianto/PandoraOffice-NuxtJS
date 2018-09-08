@@ -377,7 +377,7 @@ i:before {
   border-radius: 0px;
   border: 1px solid #e5e5e5;
   height: 50px;
-  padding: 0px 30px;
+  padding: 0px 20px;
   outline: none;
   -webkit-box-shadow: none;
   box-shadow: none;
@@ -2813,7 +2813,7 @@ i:before {
 
 .l_product_item {
   border: 1px solid #cccccc;
-  margin-bottom: 10px;
+  margin-bottom: 25px;
 }
 
 .l_product_item .l_p_img {
@@ -3580,12 +3580,24 @@ i:before {
   color: #0dda2a;
 }
 
-.product_details_text h4 {
-  font-size: 24px;
+.product_details_text h5 {
+  font-size: 22px;
   font-family: "Montserrat", sans-serif;
   font-weight: 500;
-  color: #000;
+  color: #666666;
   padding-bottom: 15px;
+  -webkit-transition: all 400ms linear 0s;
+  -o-transition: all 400ms linear 0s;
+  transition: all 400ms linear 0s;
+}
+
+.product_details_text h4 {
+  font-size: 22px;
+  color: #d91522;
+}
+.product_details_text h4 del {
+  font-size: 18px;
+  color: #666666;
 }
 
 .product_details_text p {
@@ -4213,8 +4225,10 @@ i:before {
   padding: 50px;
 }
 
-.calculate_shoping_area .calculate_shop_inner .calculate_shoping_form .form-group {
+.calculate_shoping_area .calculate_shop_inner .calculate_shoping_form .form-group label {
   margin-bottom: 20px;
+  font-size: 14px;
+  font-family: "Poppins", sans-serif;
 }
 
 .calculate_shoping_area .calculate_shop_inner .calculate_shoping_form .form-group .bootstrap-select {
@@ -4271,13 +4285,17 @@ i:before {
 }
 
 .calculate_shoping_area .calculate_shop_inner .calculate_shoping_form .form-group input {
-  height: 56px;
+  height: 40px;
   border: 1px solid #cccccc;
   border-radius: 0px;
   -webkit-box-shadow: none;
   box-shadow: none;
   outline: none;
-  padding: 0px 22px;
+  padding: 0px 10px;
+  font-size: 14px;
+  font-family: "Poppins", sans-serif;
+  color: #666666;
+  
 }
 
 .calculate_shoping_area .calculate_shop_inner .calculate_shoping_form .form-group input.placeholder {
@@ -6052,6 +6070,8 @@ i:before {
 .l_p_categories_widget .navbar-nav li.dropdown .dropdown-menu li a {
   color: #999999;
   border-color: #eaeaea;
+  font-size: 13px;
+  margin-left: 10px;
 }
 
 .l_p_categories_widget .navbar-nav li.dropdown .dropdown-menu li:last-child a {
@@ -6289,10 +6309,11 @@ i:before {
   color: #333333;
   border-radius: 0px !important;
   padding: 10px 15px;
-  border: 1px solid transparent;
+  border: 1px solid #333333;
   -webkit-transition: all 400ms linear 0s;
   -o-transition: all 400ms linear 0s;
   transition: all 400ms linear 0s;
+  margin-right: 5px;
 }
 
 .pagination_area .pagination li:first-child a {
@@ -6315,7 +6336,8 @@ i:before {
 }
 
 .showing_fillter {
-  margin-bottom: 35px;
+  margin-bottom: 20px;
+  margin-left: 30px;
 }
 
 .showing_fillter .first_fillter {
@@ -6375,6 +6397,7 @@ i:before {
   font-size: 14px;
   font-family: "Poppins", sans-serif;
   font-weight: normal;
+  margin-left: 10px;
 }
 
 .showing_fillter .secand_fillter .bootstrap-select .dropdown-toggle:after {

@@ -2,6 +2,10 @@ module.exports = {
   /*
   ** Headers of the page
   */
+  loading: {
+    color: 'yellow',
+    height: '5px'
+  },
   head: {
     title: 'office',
     meta: [
@@ -50,17 +54,9 @@ module.exports = {
       { src: 'vendors/revolution/js/extensions/revolution.extension.slideanims.min.js', type: 'text/javascript'},
       { src: 'vendors/revolution/js/extensions/revolution.extension.layeranimation.min.js', type: 'text/javascript'},
       { src: 'vendors/revolution/js/extensions/revolution.extension.navigation.min.js', type: 'text/javascript'},
-      { src: 'vendors/revolution/js/extensions/revolution.extension.slideanims.min.js', type: 'text/javascript'},
-      { src: 'vendors/counterup/jquery.waypoints.min.js', type: 'text/javascript'},
-      { src: 'vendors/counterup/jquery.counterup.min.js', type: 'text/javascript'},
-      { src: 'vendors/owl-carousel/owl.carousel.min.js', type: 'text/javascript'},
-      { src: 'vendors/bootstrap-selector/js/bootstrap-select.min.js', type: 'text/javascript'},
-      { src: 'vendors/image-dropdown/jquery.dd.min.js', type: 'text/javascript'},
-      { src: 'js/smoothscroll.js', type: 'text/javascript'},
-      { src: 'vendors/isotope/imagesloaded.pkgd.min.js', type: 'text/javascript'},
-      { src: 'vendors/isotope/isotope.pkgd.min.js', type: 'text/javascript'},
-      { src: 'vendors/magnify-popup/jquery.magnific-popup.min.js', type: 'text/javascript'},
-      { src: 'vendors/vertical-slider/js/jQuery.verticalCarousel.js'}
+      { src: 'vendors/revolution/js/extensions/revolution.extension.slideanims.min.js', type: 'text/javascript'},      
+      { src: 'vendors/owl-carousel/owl.carousel.min.js', type: 'text/javascript'}, 
+      { src: 'vendors/bootstrap-selector/js/bootstrap-select.min.js', type: 'text/javascript'}, 
   ],
     css: [
       '@/assets/scss/style.scss'
@@ -68,7 +64,7 @@ module.exports = {
 
     plugins: [
       '~/plugins/axios',
-      '~/plugins/vue-notifications',
+      '~/plugins/mask'
     ],
 
     modules: [
@@ -77,7 +73,7 @@ module.exports = {
     ],        
   },
   env: {
-      myapi: process.env.myapi || "http://6e58c76b.ngrok.io"
+      myapi: process.env.myapi || "http://145caf78.ngrok.io"
   },
   /*
   ** Customize the progress bar color

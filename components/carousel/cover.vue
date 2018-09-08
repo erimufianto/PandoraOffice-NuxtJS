@@ -3,7 +3,7 @@
     <!--================Home Carousel Area =================-->
         <div class="home_carousel_slider">
             <div class="row">
-                <div class="col-lg-3 col-sm-3">
+                <div class="col-sm-3 col-sm-3">
                     <div class="item">
                         <div class="h_carousel_item">
                             <img src="@/static/img/home-carousel/home-c-1.jpg" alt="">
@@ -17,7 +17,7 @@
                         </div>
                     </div>
                 </div>
-                <div class="col-lg-3 col-sm-3">
+                <div class="col-sm-3 col-sm-3">
                     <div class="item">
                         <div class="h_carousel_item">
                             <img src="@/static/img/home-carousel/home-c-2.jpg" alt="">
@@ -31,7 +31,7 @@
                         </div>
                     </div>
                 </div>
-                <div class="col-lg-3 col-sm-3">
+                <div class="col-sm-3 col-sm-3">
                     <div class="item">
                         <div class="h_carousel_item">
                             <img src="@/static/img/home-carousel/home-c-3.jpg" alt="">
@@ -45,7 +45,7 @@
                         </div>
                     </div>
                 </div>
-                <div class="col-lg-3 col-sm-3">
+                <div class="col-sm-3 col-sm-3">
                     <div class="item">
                         <div class="h_carousel_item">
                             <img src="@/static/img/home-carousel/home-c-4.jpg" alt="">
