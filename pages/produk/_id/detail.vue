@@ -18,8 +18,8 @@
                             <h5 v-if="loadedDetail.pricing.harga_promo==0">Rp {{ loadedDetail.pricing.harga }}</h5>
                             <h4 v-else><del>Rp {{ loadedDetail.pricing.harga }}</del><br>Rp {{ loadedDetail.pricing.harga_promo }}</h4>
                             <p>{{ loadedDetail.deskripsi }}</p>
-                                <button type="submit" class="detail_btn" style="margin-right:10px;" @click="addKatalog(produk)">Tambah Katalog</button>
-                                <nuxt-link :to="{name: 'cart', params: {id: loadedDetail.id}}" class="submit_btn">Beli</nuxt-link>                                                      
+                                <nuxt-link :to="{name: 'katalog-buatkatalog', params: {id: loadedDetail.id}}" class="detail_btn" style="margin-right:10px;">Tambah Katalog</nuxt-link>
+                                <nuxt-link :to="{name: 'cart-order', params: {id: loadedDetail.id}}" class="submit_btn">Beli</nuxt-link>                                                      
                         </div>
                     </div>
                 </div>
@@ -55,21 +55,6 @@ export default {
             .then (res => 
                 (this.loadedDetail = res.data.data.detailBarangOffice[0]))
     },
-    methods: {
-        addKatalog() {
-            axios
-                .post(
-                    process.env.myapi + 
-                        "graphiql?query=mutation{ newSellingList(user_id:" + 
-                        this.user.id + ",sku_barang:" +  
-                        this.sku + ",harga:" + 
-                        this.harga_input+ 
-                        "){ id user_id sku_barang harga } }"
-                )
-                .then (res => 
-                    (this.dataKatalog = res.data.data.newSellingList))
-        }
-    }
 }
 </script> 
 

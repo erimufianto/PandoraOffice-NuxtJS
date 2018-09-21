@@ -25,9 +25,9 @@
                                 <h4>Showing {{ page }} from {{ totalPage }} pages</h4>
                             </div>
                             <div class="secand_fillter">
-                                <h4>SORT BY :</h4>
+                                <h4>Urutkan :</h4>
                                 <select class="selectpicker">
-                                    <!-- <option v-repeat="nama | orderBy sortKey reverse">Nama</option> -->
+                                    <option>Nama</option>
                                     <option>Harga</option>
                                 </select>
                             </div>
@@ -56,6 +56,7 @@ import kategori from '@/components/produk/kategori'
 import pagination from '@/components/pagination/pagination'
 
 export default {
+    middleware: 'auth',
     layout: 'layouthome',
     components: {
         listproduk,
@@ -105,7 +106,7 @@ export default {
             let vm = this;
             axios.get(
                 process.env.myapi + 
-                "/graphql?query=query{ barangOffice(skip:"+vm.skip+",take:"+vm.perPage+"){ id sku nama deskripsi pricing{ id sku_barang tanggal harga harga_promo } image{ id thumbnail image_ori id_barang } },kategori{ id nama jenis },countBarangOffice{ jumlah } }"
+                "/graphql?query=query{ barangOffice(skip:"+vm.skip+",take:"+vm.perPage+"){ id sku nama deskripsi pricing{ id sku_barang tanggal harga harga_promo } image{ id thumbnail image_ori id_barang } },kategori{ id nama jenis tag{ id nama } } ,countBarangOffice{ jumlah } }"
             ).then(function (result){
                 vm.loadedProduk= result.data.data.barangOffice;
                 vm.loadedKategori= result.data.data.kategori;

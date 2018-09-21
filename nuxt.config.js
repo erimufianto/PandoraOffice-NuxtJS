@@ -73,7 +73,7 @@ module.exports = {
     ],        
   },
   env: {
-      myapi: process.env.myapi || "http://145caf78.ngrok.io"
+      myapi: process.env.myapi || "http://8d975ba0.ngrok.io"
   },
   /*
   ** Customize the progress bar color

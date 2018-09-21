@@ -1,6 +1,6 @@
 <template>
 <div>
-    <div v-if="listKatalog" class="container">
+    <div v-if="dataKatalog" class="container">
         <div class="col-lg-6">
             <div class="top_header_left">
                 <div class="input-group">
@@ -19,28 +19,29 @@
                     <table class="table">
                         <thead>
                             <tr>
-                                <th scope="col">ID</th>
+                                <th scope="col">No</th>
                                 <th scope="col">Produk</th>
+                                <th scope="col">Harga</th>
                                 <th scope="col">Harga Jual</th>
                                 <th scope="col">Detail</th>
                             </tr>
                         </thead>
                         <tbody>
                             <tr>
-                                <td><p>{{ listKatalog.id }}</p></td>
+                                <td><p>{{ dataKatalog.id }}</p></td>
                                 <td>
                                     <div class="media">
                                         <div class="d-flex">
-                                            <img   style="width:50px;height:50px;" alt="">
+                                            <img :src="dataKatalog.image[0].thumbnail" style="width:50px;height:50px;" alt="">
                                         </div>
                                         <div class="media-body">
-                                            <h4>{{ listKatalog.nama }}</h4>
+                                            <h4>{{ dataKatalog.nama }}</h4>
                                         </div>
                                     </div>
                                 </td>
-                                <td><p>Rp {{ listKatalog.harga }}</p></td>
-                                <td><nuxt-link :to="{name: 'produk-id-detail', params: {id: listKatalog.id}}" class="detail_btn">Detail</nuxt-link></td>
-                                <td><a @click="deleteKatalog(listKatalog)"><i class="fa fa-remove" style="font-size:25px;margin-top:3px;color:red"></i></a></td>
+                                <td><p>Rp {{ dataKatalog.pricing.harga }}</p></td>
+                                <td><p>Rp <input type="number" min="0" max="9999999999" style="width:130px;height:40px;" placeholder="0"></p></td>
+                                <td><nuxt-link :to="{name: 'katalog', params: {id: loadedDetail.id} }" class="detail_btn">Simpan</nuxt-link></td>                                
                             </tr>
                         </tbody>
                     </table>
@@ -49,19 +50,6 @@
         </div>    
     </div>
 
-    <div v-if="!listKatalog" class="container">
-        
-        <section class="emty_cart_area p_100">
-            <div class="container">
-                <div class="emty_cart_inner">
-                    <i class="icon-basket"></i>
-                    <h3>Anda tidak memiliki katalog</h3>
-                    <h4>Kembali ke <a href="/produk">PRODUK</a></h4>
-                </div>
-            </div>
-        </section>
-
-    </div>
 </div>
 </template>
 
@@ -70,25 +58,39 @@ import axios from 'axios'
 
 export default {
     layout: 'layouthome',
-    props: ['listKatalog'],
-    mounted() {
+    props: ['dataKatalog'],
+    data() {
+        return {
+            loadedDetail: {
+                id: this.$route.params.id
+            }
+        }
+    },
+    mounted(loadedDetail) {
         axios 
             .get(
                 process.env.myapi + 
-                    "/graphql?query=query{ tampilKatalog(id_user:123){ id id_user harga barang{ id nama image{ thumbnail } } } }"
+                    "/graphql?query=query{ detailBarangOffice(id:" + 
+                    this.loadedDetail.id + 
+                    "){ id nama sku image{ thumbnail image_ori } pricing{ harga harga_promo } } }"
             )
             .then (res => 
-                (this.listKatalog = res.data.data.tampilKatalog))
+                (this.dataKatalog = res.data.data.detailBarangOffice[0]))
     },
-    // methods: {
-    //     deleteKatalog(dataKatalog) {
-    //         this.$store.commit('deleteKatalog', dataKatalog)
-    //         this.$toast.open({
-    //             message: 'katalog telah dihapus dari katalog',
-    //             type: 'is-danger'
-    //         })
-    //     }
-    // }
+    methods: {
+        addKatalog() {
+            axios
+                .post(
+                    process.env.myapi + 
+                        "graphql?query=mutation{ newSellingList(id_user:123,id_barang:" + 
+                        this.id + 
+                        ",harga:" + 
+                        this.harga_jual + "){ id } }"
+                )
+                .then (res => 
+                    (this.SellingList = res.data.data.newSellingList))
+        }
+    }
 }
 </script>
 

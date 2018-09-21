@@ -7,7 +7,7 @@
                 <h3>Kategori</h3>
             </div>
            
-            <ul  class="navbar-nav" v-for="kategori in dataKategori"
+            <ul  class="navbar-nav" v-for="(kategori) in dataKategori"
                         :key="kategori.id"
                         :id="kategori.id"
                         :nama="kategori.nama">
@@ -17,9 +17,7 @@
                         <i class="icon_minus-06" aria-hidden="true"></i>
                     </a>
                     <ul class="dropdown-menu" aria-labelledby="navbarDropdown">
-                        <li class="nav-item"><a class="nav-link" href="#">{{ kategori.nama }}</a></li>
-                        <li class="nav-item"><a class="nav-link" href="#">{{ kategori.nama }}</a></li>
-                        <li class="nav-item"><a class="nav-link" href="#">{{ kategori.nama }}</a></li>
+                        <li class="nav-item"><a class="nav-link" href="#">{{ kategori.tag[0].nama }}</a></li>
                     </ul>
                 </li>
             </ul>

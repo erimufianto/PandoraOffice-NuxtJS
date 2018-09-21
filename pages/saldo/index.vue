@@ -43,12 +43,8 @@
 </template>
 
 <script>
-import cart from '@/components/cart/cart'
 
 export default {
     layout: 'layouthome',
-    components: {
-        cart
-    }
 }
 </script>

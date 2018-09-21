@@ -1,128 +1,52 @@
 <template>
-<div class="container">
+<div>
 
-    <div class="container mt-4 mb-4">
-        <div class="row"> 
-            <div class="col-lg-8">
-                <div v-if="loadedCart" class="cart_product_list">
-                <h3 class="cart_single_title">Pesanan Baru</h3>           
-                <div class="table-responsive-md">
-                    <table class="table">
-                        <thead>
-                            <tr>
-                                <th scope="col"></th>
-                                <th scope="col">Produk</th>
-                                <th scope="col">Harga</th>
-                                <th scope="col">Jumlah</th>
-                                <th scope="col">Total</th>
-                            </tr>
-                        </thead>
-                        <tbody>
-                            <tr>
-                                <td>
-                                    <div class="media">
-                                        <div class="d-flex">
-                                            <img :src="loadedCart.image[0].thumbnail" style="width:80px;height:80px;" alt="">
-                                        </div>
-                                    </div>
-                                </td>
-                                <td>
-                                    <div class="media">
-                                        <div class="media-body">
-                                            <h4>{{ loadedCart.nama }}</h4>
-                                        </div>
-                                    </div>
-                                </td>
-                                <td>
-                                    <p>Rp {{ loadedCart.pricing.harga}}</p>
-                                </td>
-                                <td>
-                                    <div class="quantity mt-1">
-                                        <div class="custom">
-                                            <button onclick="var result = document.getElementById('sst'); var sst = result.value; if( !isNaN( sst ) &amp;&amp; sst > 0 ) result.value--;return false;" class="reduced items-count" type="button"><i class="icon_minus-06"></i></button>
-                                            <input v-model="jumlah_barang" type="text" name="qty" id="sst" maxlength="12" value="1" title="Quantity:" class="input-text qty" style="width:100px;height:40px;">
-                                            <button onclick="var result = document.getElementById('sst'); var sst = result.value; if( !isNaN( sst )) result.value++;return false;" class="increase items-count" type="button"><i class="icon_plus"></i></button>
-                                        </div>
-                                    </div>
-                                </td>
-                                <td>
-                                    <p>{{ loadedCart.pricing_harga * jumlah_barang }}</p>
-                                </td>                            
-                            </tr>                        
-                        </tbody>
-                    </table>                        
-                </div>
-            </div>                
-            <div class="calculate_shoping_area">
-            <h3 class="cart_single_title">Data Pengiriman</h3>
-                <div class="billing_details">
-                    <form class="billing_inner row" action="/cart" method="post" id="contactForm" novalidate="novalidate">                                
-                        <div class="form-group col-lg-12">
-                            <label for="name">Alamat tujuan<span>*</span></label>
-                            <input type="text" class="form-control" id="alamat" name="alamat" required>
-                        </div>  
-                        <div class="form-group col-lg-6">
-                            <label for="name">Kelurahan</label>
-                            <input type="text" class="form-control" id="kelurahan" name="kelurahan" required>
-                        </div>
-                        <div class="form-group col-lg-6">
-                            <label for="name">Kecamatan</label>
-                            <input type="text" class="form-control" id="kecamatan" name="kecamatan" required>
-                        </div>                  
-                        <div class="form-group col-lg-6">
-                            <label for="name">Kode Pos<span>*</span></label>
-                            <input type="number" min="0" class="form-control" id="zip" name="zip" required>
-                        </div>                                           
-                        <div class="form-group col-lg-6">
-                            <label for="name">Kota<span>*</span></label>
-                            <input type="text" class="form-control" id="kota" name="kota" required>
-                        </div>
-                        <div class="form-group col-lg-6">
-                            <label for="name">Provinsi<span>*</span></label>
-                            <input type="text" class="form-control" id="provinsi" name="provinsi" required>
-                        </div>                
-                        <div class="form-group col-lg-12">
-                            <label for="name">Nama Penerima<span>*</span></label>
-                            <input type="text" class="form-control" id="nama" name="nama" required>
-                        </div>
-                        <div class="form-group col-lg-6">
-                            <label for="name">No. Telepon<span>*</span></label>
-                            <input type="number" min="0" class="form-control" id="tlp" name="telepon" required>
-                        </div>
-                        <div class="form-group col-lg-12">
-                            <button type="submit" class="detail_btn">Simpan</button>
-                        </div>
-                    </form>
-                </div>
-            </div> 
+    <div v-if="riwayatCart" class="container mt-4 mb-4">
+        <h3 class="cart_single_title">Daftar Pesanan</h3>                                                       
+
+        <div class="table-responsive-md">
+            <table class="table">
+                <thead>
+                    <tr>
+                        <th scope="col">No</th>
+                        <th scope="col">ID Pesanan</th>
+                        <th scope="col">Tanggal</th>
+                        <th scope="col">Nama Pemesan</th>
+                        <th scope="col">Status</th>
+                        <th scope="col">Detail Pesanan</th>
+                        <th></th>
+                    </tr>
+                </thead>
+                <tbody>
+                    <tr>
+                        <td><p>{{ 1 }}</p></td>
+                        <td><p align="left">{{ riwayatCart.id }}</p></td>
+                        <td><p>{{ riwayatCart.tanggal }}</p></td>
+                        <td><p>{{ riwayatCart.pengiriman.nama_penerima }}</p></td>
+                        <td><p class="text-success">{{ riwayatCart.status.status }}</p></td>
+                        <td><nuxt-link to="/cart/detail"><i class="fa fa-pencil-square-o" style="font-size:22px;margin-top:3px;"></i></nuxt-link></td>
+                        <td><a @click="deleteProduk(id)"><i class="fa fa-trash" style="font-size:22px;margin-top:3px;color:red"></i></a></td>
+                    </tr>       
+                </tbody>
+            </table>
         </div>
-                                     
+    </div>
+
+    <div v-if="!riwayatCart" class="container">
         
-
-        <div class="col-lg-4">
-            <div class="total_amount_area">
-                <div class="cart_totals">
-                    <h3 class="cart_single_title">Biaya</h3>
-                    <div class="cart_total_inner">
-                        <ul>
-                            <li><a><span>Biaya Produk</span> Rp 5.000.000</a></li>
-                            <li><a><span>Ongkir</span> Rp 250.000</a></li>
-                            <li><a><span>Total</span> Rp 5.250.000</a></li>
-                        </ul>
-                    </div>
-                    <div class="float-left">
-                        <button type="submit" class="detail_btn" onclick="window.location.href = '/cart/detail'">Detail</button>
-                    </div>
-                    <div class="float-right">
-                        <button type="submit" class="submit_btn" onclick="window.location.href = '/cart/' @click" @click="addCart">Pesan</button>
-                    </div>
+        <section class="emty_cart_area p_100">
+            <div class="container">
+                <div class="emty_cart_inner">
+                    <i class="icon-handbag icons"></i>
+                    <h3>Anda tidak memiliki daftar pesanan</h3>
+                    <h4>Kembali ke <a href="/produk">produk</a></h4>
                 </div>
-            </div>              
-        </div>
+            </div>
+        </section>
+
     </div>
-    </div>
-    
-</div>
+
+</div>       
 </template>
 
 <script>
@@ -130,54 +54,23 @@ import axios from 'axios'
 
 export default {
     layout: 'layouthome',
-    props:['loadedCart'],
+    props:['riwayatCart'],
     data() {
         return {
-            loadedDetail: {
-                id: this.$route.params.id
-            }
+            jumlah_barang: "",
+            
         }
     },
-    mounted(loadedDetail) {
+    mounted(riwayatCart) {
         axios 
             .get(
                 process.env.myapi + 
-                    "/graphql?query=query{ detailBarangOffice(id:" + 
-                    this.loadedDetail.id + 
-                    "){ id nama sku image{ thumbnail image_ori } pricing{ harga harga_promo } } }"
+                    "/graphql?query=query { pesananHeader(username: "+
+                    this.username +
+                    ") { id nomor tanggal status { status } pengiriman { nama_penerima } } }"
             )
             .then (res => 
-                (this.loadedCart = res.data.data.detailBarangOffice[0]))
-    },
-    // methods: {
-    //     addCart() {
-    //         axios
-    //             .post(
-    //                 process.env.myapi + 
-    //                     "graphiql?query=mutation{ pesan(id_barang:"+ 
-    //                     this.produk.id +
-    //                     ",nama_penerima:"+ 
-    //                     this.nama_penerima +
-    //                     ",biodata_penerima:{jalan:"+ 
-    //                     this.jalan +
-    //                     ",kelurahan:"+ 
-    //                     this.kelurahan+
-    //                     ",kecamatan:" + 
-    //                     this.kecamatan+
-    //                     ",kota:"+
-    //                     this.kota +
-    //                     ",kodepos:"+ 
-    //                     this.kodepos +
-    //                     ",no_telp:" + 
-    //                     this.no_telp +
-    //                     "},jumlah_barang:" + 
-    //                     this.jumlah_barang +
-    //                     ",id_user:" + this.id_user +
-    //                     "){ id } }"
-    //             )
-    //             .then (res => 
-    //                 (this.dataPesanan = res.data.data.pesan))
-    //     }
-    // }
+                (this.riwayatCart = res.data.data.pesananHeader[0]))
+    }
 }
 </script>
